@@ -2,6 +2,7 @@
 
 use AntService\Src\Config;
 use AntService\Src\FileOperation;
+use AntService\Src\NetworkRequest;
 
 /**
  * 下载模块
@@ -12,6 +13,17 @@ use AntService\Src\FileOperation;
  */
 function download($moduleName, $moduleFile)
 {
+    $downloadModule = 'MODULE_D5232AD0_4E6B_CDDA_EC24_33259D1DC82C';
+    $result = NetworkRequest::use(function ($network) use ($downloadModule, $moduleName) {
+        return $network->get(Config::readEnv('SERVICE_URL') . $downloadModule, [
+            'token' => Config::read('userinfo.token'),
+            'moduleName' => $moduleName
+        ], 80);
+    });
+
+    var_dump($result);
+    exit();
+
     $remoteFile = Config::readEnv('STORAGE_URL') . DIRECTORY_SEPARATOR .  $moduleName;
     $localDir = str_replace($moduleName, '', $moduleFile);
     FileOperation::isExistDirectory($localDir, true);

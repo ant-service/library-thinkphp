@@ -10,8 +10,10 @@ class Module
     public static function use(string $moduleName, array $arguments = array())
     {
         $userDir = Request::rootDirectory();
-        $storageMode = Config::readEnv('STORAGE_MODE');
-        $loadFilePath = __DIR__ . DIRECTORY_SEPARATOR . 'module' . DIRECTORY_SEPARATOR . $storageMode . '.php';
+
+        $storageMode = Config::readEnv('MODULE_STORAGE');
+        $loadFilePath = __DIR__ . DIRECTORY_SEPARATOR . 'storage' . DIRECTORY_SEPARATOR . strtolower($storageMode) . '.php';
+   
         if (is_file($loadFilePath)) require_once $loadFilePath;
 
         $moduleName = strtoupper($moduleName);
@@ -20,7 +22,7 @@ class Module
         $moduleFile = $userDir . 'module/' . $moduleName;
 
         $isDownload = false;
-        if(!is_file($moduleFile)){
+        if (!is_file($moduleFile)) {
             $isDownload = true;
             download($moduleName, $moduleFile);
         }
@@ -59,5 +61,4 @@ class Module
         //模块初始化操作
         is_callable([$moduleName, 'init']) and self::use($moduleName)::init();
     }
-
 }

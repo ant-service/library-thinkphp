@@ -2,9 +2,24 @@
 
 use AntService\Src\DataBase;
 use AntService\Src\DataType;
+use AntService\Src\Module;
 use AntService\Src\OutPut;
 use AntService\Src\Request;
 use AntService\Src\Validate;
+
+if (!function_exists('useModule')) {
+    /**
+     * 使用数据库
+     * @param callable $callback 闭包函数
+     * @param mixed ...$param 延展参数
+     * @return mixed 执行结果 
+     * @author mahaibo <mahaibo@hongbang.js.cn>
+     */
+    function useModule(string $moduleName, array $arguments = array())
+    {
+        return Module::use($moduleName, $arguments);
+    }
+}
 
 if (!function_exists('useDataBase')) {
     /**
@@ -166,4 +181,3 @@ if (!function_exists('syncDataBase')) {
         DataBase::dbDepend($ruleConfig);
     }
 }
-
