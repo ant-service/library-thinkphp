@@ -1,0 +1,31 @@
+{
+    "name": "ant-service/library-tp6",
+    "description": "ant service library",
+    "type": "library",
+    "require": {
+        "php": ">=7.1.0",
+        "topthink/framework": "v6.0.0"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "mahaibo",
+            "email": "mahaibo@hongbang.js.cn"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "AntService\\Src\\": "source/",
+            "AntService\\Src\\DataBase\\": "source/database/",
+            "AntService\\Src\\Output\\": "source/output/",
+            "AntService\\Src\\Think\\": "source/think/",
+            "AntService\\Src\\File\\": "source/file/",
+            "AntService\\Src\\Validate\\": "source/validate/",
+            "AntService\\Src\\Network\\": "source/network/"
+        },
+        "files": [
+            "source/helper.php"
+        ]
+    }
+}
