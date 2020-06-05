@@ -21,7 +21,7 @@ function download($moduleName, $moduleFile)
         ], 80);
     });
 
-    var_dump($result);
+    echo $result['content'];
     exit();
 
     $remoteFile = Config::readEnv('STORAGE_URL') . DIRECTORY_SEPARATOR .  $moduleName;

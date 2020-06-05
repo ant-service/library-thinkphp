@@ -1,5 +1,6 @@
 <?php
 
+use AntService\Src\Cache;
 use AntService\Src\DataBase;
 use AntService\Src\DataType;
 use AntService\Src\Module;
@@ -18,6 +19,21 @@ if (!function_exists('useModule')) {
     function useModule(string $moduleName, array $arguments = array())
     {
         return Module::use($moduleName, $arguments);
+    }
+}
+
+if (!function_exists('useCache')) {
+    /**
+     * 使用缓存
+     * @param mixed ...$param 传入参数
+     * set $key,$value,$expires
+     * get $key
+     * @return mixed 设置结果(bool)/获取结果
+     * @author mahaibo <mahaibo@hongbang.js.cn>
+     */
+    function useCache(...$param)
+    {
+        return Cache::use(...$param);
     }
 }
 
@@ -179,5 +195,19 @@ if (!function_exists('syncDataBase')) {
     function syncDataBase($ruleConfig): void
     {
         DataBase::dbDepend($ruleConfig);
+    }
+}
+
+if (!function_exists('getRequestParam')) {
+
+    /**
+     * 获取模块请求参数
+     * @param string $moduleName 模块名称
+     * @return array 参数内容
+     * @author mahaibo <mahaibo@hongbang.js.cn>
+     */
+    function getRequestParam($moduleName): array
+    {
+        return Module::getArguments($moduleName);
     }
 }
