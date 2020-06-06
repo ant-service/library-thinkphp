@@ -11,7 +11,7 @@ class Cache
     /**
      * 使用缓存
      * @param mixed ...$param 传入参数
-     * set $key,$value,$expires
+     * set $key,$value,$expire
      * get $key
      * @return mixed 设置结果(bool)/获取结果
      * @author mahaibo <mahaibo@hongbang.js.cn>
@@ -20,8 +20,9 @@ class Cache
     {
         $mode = array_shift($param);
         if (is_callable($mode)) return self::callable($mode, ...$param);
-        if ($mode === 'get') return self::getThinkCache()->get($param[0]);
-        if ($mode === 'set') return self::getThinkCache()->set($param[0], $param[1], $param[2], $param[3]);
+        if ($mode === 'get') return self::get($param[0]);
+        if ($mode === 'get_expire_time') return self::getExpireTime($param[0]);
+        if ($mode === 'set') return self::set($param[0], $param[1], $param[2], $param[3]);
         return new self;
     }
 
@@ -31,13 +32,22 @@ class Cache
         return $callback($cache, ...$param);
     }
 
-    public static function __callStatic($name, $arguments)
+    public static function get($key, $defaultResult = false)
     {
-        return self::getThinkCache()::$name(...$arguments);
+        $result = self::getThinkCache()->get($key, $defaultResult);
+        if ($result === $defaultResult) return $result;
+        return $result['value'];
     }
 
-    public function __call($name, $arguments)
+    public static function getExpireTime($key, $defaultResult = false)
     {
-        return self::getThinkCache()->$name(...$arguments);
+        $result = self::getThinkCache()->get($key, $defaultResult);
+        if ($result === $defaultResult) return $result;
+        return $result['expire'] - time();
+    }
+
+    public static function set($key, $value, $expire)
+    {
+        return self::getThinkCache()->set($key, ['value' => $value, 'expire' => time() + $expire]);
     }
 }

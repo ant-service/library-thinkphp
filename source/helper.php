@@ -160,7 +160,7 @@ if (!function_exists('convertJson')) {
 if (!function_exists('successOutput')) {
     /**
      * 成功返回
-     * @param any $data 传入数据,支持任意类型
+     * @param mixed $data 传入数据,支持任意类型
      * @author mahaibo <mahaibo@hongbang.js.cn>
      * @return array
      */
@@ -209,5 +209,48 @@ if (!function_exists('getRequestParam')) {
     function getRequestParam($moduleName): array
     {
         return Module::getArguments($moduleName);
+    }
+}
+
+if (!function_exists('getCache')) {
+    /**
+     * 获取缓存
+     * @param string $key 键
+     * @param mixed $defaultResult 当获取不到时，默认结果
+     * @return mixed 结果
+     * @author mahaibo <mahaibo@hongbang.js.cn>
+     */
+    function getCache($key, $defaultResult = null)
+    {
+        return Cache::get($key, $defaultResult);
+    }
+}
+
+if (!function_exists('setCache')) {
+    /**
+     * 删除缓存
+     * @param string $key
+     * @param mixed $value
+     * @param int $expire
+     * @return bool
+     * @author mahaibo <mahaibo@hongbang.js.cn>
+     */
+    function setCache($key, $value, $expire)
+    {
+        return Cache::set($key, $value, $expire);
+    }
+}
+
+if (!function_exists('getCacheExpires')) {
+    /**
+     * 获取缓存过期时间
+     * @param string $key 键
+     * @param mixed $defaultResult 当获取不到时，默认结果
+     * @return int 剩余时间
+     * @author mahaibo <mahaibo@hongbang.js.cn>
+     */
+    function getCacheExpires($key, $defaultResult = 0)
+    {
+        return Cache::getExpireTime($key, $defaultResult);
     }
 }
