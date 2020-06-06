@@ -1,6 +1,7 @@
 <?php
 
 use AntService\Src\Cache;
+use AntService\Src\Config;
 use AntService\Src\DataBase;
 use AntService\Src\DataType;
 use AntService\Src\Module;
@@ -179,7 +180,7 @@ if (!function_exists('errorOutput')) {
      * @author mahaibo <mahaibo@hongbang.js.cn>
      * @return array
      */
-    function error($code, string $message = '', $status = 500): void
+    function errorOutput($code, string $message = '', $status = 500): void
     {
         OutPut::error($code, $message, $status);
     }
@@ -254,3 +255,59 @@ if (!function_exists('getCacheExpires')) {
         return Cache::getExpireTime($key, $defaultResult);
     }
 }
+
+if (!function_exists('removeCache')) {
+    /**
+     * 移除缓存
+     * @param string $key 键
+     * @return bool 
+     * @author mahaibo <mahaibo@hongbang.js.cn>
+     */
+    function removeCache($key)
+    {
+        return Cache::remove($key);
+    }
+}
+
+if (!function_exists('readConfig')) {
+    /**
+     * 读取配置文件
+     * @param string $configName 配置文件名称 
+     * 例 think.database.mysql.type 可直接获取think配置文件中的database键下的mysql键下的tpye值
+     * 如值为数组则支持多级取值,以'.'连接
+     * @return void
+     */
+    function readConfig(string $configName): string
+    {
+        return Config::read($configName);
+    }
+}
+
+if (!function_exists('writeConfig')) {
+    /**
+     * Undocumented function
+     * @param string $configName 配置文件名称 
+     * 例 think.database.mysql.type 可直接修改think配置文件中的database键下的mysql键下的tpye值
+     * @param mixed $content
+     * @return void
+     * @author mahaibo <mahaibo@hongbang.js.cn>
+     */
+    function writeConfig(string $configName, $content)
+    {
+        return Config::write($configName, $content);
+    }
+}
+
+if (!function_exists('readEnv')) {
+    /**
+     * Undocumented function
+     * @param string $configName 配置文件名称 
+     * @return string 值
+     * @author mahaibo <mahaibo@hongbang.js.cn>
+     */
+    function readEnv(string $configName)
+    {
+        return Config::readEnv($configName);
+    }
+}
+

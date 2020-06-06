@@ -34,6 +34,7 @@ class Cache
 
     public static function get($key, $defaultResult = false)
     {
+        if ($key === null) return $defaultResult;
         $result = self::getThinkCache()->get($key, $defaultResult);
         if ($result === $defaultResult) return $result;
         return $result['value'];
@@ -41,6 +42,7 @@ class Cache
 
     public static function getExpireTime($key, $defaultResult = false)
     {
+        if ($key === null) return $defaultResult;
         $result = self::getThinkCache()->get($key, $defaultResult);
         if ($result === $defaultResult) return $result;
         return $result['expire'] - time();
@@ -49,5 +51,10 @@ class Cache
     public static function set($key, $value, $expire)
     {
         return self::getThinkCache()->set($key, ['value' => $value, 'expire' => time() + $expire]);
+    }
+
+    public static function remove($key)
+    {
+        return self::getThinkCache()->delete($key);
     }
 }
