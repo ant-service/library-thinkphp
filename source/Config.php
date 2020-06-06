@@ -8,8 +8,8 @@ class Config
     {
         $keyArray = explode('.', $configName);
         $filePath = Request::rootDirectory() . 'config/' . array_shift($keyArray) . '.json';
-        $configContent = $GLOBALS['config_' . $filePath] ?? null;
         if (!is_file($filePath)) exit('读取配置文件失败,请检查配置文件[' . $filePath . ']是否存在');
+        $configContent = $GLOBALS['config_' . $filePath . '_' . filemtime($filePath)] ?? null;
         if ($configContent === null) {
             $configContent = DataType::convertArray(file_get_contents($filePath));
             $GLOBALS['config_' . $filePath] = $configContent;

@@ -2,7 +2,8 @@
 
 namespace AntService\Src\DataBase;
 
-use AntService\Src\Config;
+use AntService\Src\OutPut;
+use Exception;
 
 trait Expand
 {
@@ -17,7 +18,11 @@ trait Expand
      */
     public static function query($sql, array $bind = []): array
     {
-        return self::name('')->query($sql, $bind = []);
+        try {
+            return self::name('')->query($sql, $bind);
+        } catch (Exception $e) {
+            OutPut::error('QUERY_SQL_FAIL', $e->getMessage(), 500);
+        }
     }
 
     /**
@@ -30,7 +35,10 @@ trait Expand
      */
     public static function execute(string $sql, array $bind = [], bool $origin = false): int
     {
-        return self::name('')->execute($sql, $bind, $origin);
+        try {
+            return self::name('')->execute($sql, $bind, $origin);
+        } catch (Exception $e) {
+            OutPut::error('EXECUTE_SQL_FAIL', $e->getMessage(), 500);
+        }
     }
-
 }

@@ -8,7 +8,7 @@ trait App
 {
     private static $thinkApp = null;
 
-    public static function getThinkApp()
+    public static function getThinkApp($isForce = false)
     {
         if (self::$thinkApp == null) {
             self::$thinkApp = new ThinkApp();

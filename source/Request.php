@@ -12,7 +12,7 @@ class Request
     {
         $rootDir = $_SERVER['DOCUMENT_ROOT'];
         if ($rootDir != '') $rootDir .= '/';
-        return $rootDir;
+        return str_replace(['/', '\\'], [DIRECTORY_SEPARATOR, DIRECTORY_SEPARATOR], $rootDir);
     }
 
     /**

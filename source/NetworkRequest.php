@@ -53,6 +53,7 @@ class NetworkRequest
     public static function formatResult($formatType = 'array')
     {
         self::$formatType = $formatType;
+        return self::instance();
     }
 
     private static function sendRequest()
