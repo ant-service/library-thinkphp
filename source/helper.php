@@ -53,6 +53,22 @@ if (!function_exists('useDataBase')) {
     }
 }
 
+if (!function_exists('useTransaction')) {
+    /**
+     * 使用事务
+     * @param callable $callback 闭包函数
+     * @param mixed ...$param 延展参数
+     * @return mixed 执行结果 
+     * @author mahaibo <mahaibo@hongbang.js.cn>
+     */
+    function useTransaction(callable $callback = null, ...$param)
+    {
+        $param = array_merge([$callback], $param);
+        return DataBase::useTransaction(...$param);
+    }
+}
+
+
 if (!function_exists('useValidate')) {
     /**
      * 使用验证器
@@ -310,4 +326,3 @@ if (!function_exists('readEnv')) {
         return Config::readEnv($configName);
     }
 }
-

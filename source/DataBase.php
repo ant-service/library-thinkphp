@@ -4,6 +4,7 @@ namespace AntService\Src;
 
 use AntService\Src\DataBase\StructSync;
 use AntService\Src\Think\Database as ThinkDatabase;
+use Exception;
 
 class DataBase
 {
@@ -12,14 +13,32 @@ class DataBase
     public static function use(...$param)
     {
         $mode = array_shift($param);
-        if (is_callable($mode)) return self::callable($mode, ...$param);
+        try {
+            if (is_callable($mode)) return self::callable($mode, ...$param);
+        } catch (Exception $e) {
+            OutPut::error('USE_DATABASE_FAIL', $e->getMessage(), 500);
+        }
         return new self;
+    }
+
+    public static function useTransaction(...$param)
+    {
+        $mode = array_shift($param);
+        $thinkDb = self::getThinkDB();
+        $thinkDb::startTrans();
+        try {
+            $result = $mode($thinkDb, ...$param);
+            $thinkDb::commit();
+        } catch (Exception $e) {
+            $thinkDb::rollback();
+            OutPut::error('USE_TRANSACTION_FAIL', $e->getMessage(), 500);
+        }
+        return $result;
     }
 
     private static function callable(callable $callback, ...$param)
     {
-        $cache = self::getThinkDB();
-        return $callback($cache, ...$param);
+        return $callback(self::getThinkDB(), ...$param);
     }
 
     public static function __callStatic($name, $arguments)
