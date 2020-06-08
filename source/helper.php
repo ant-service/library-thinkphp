@@ -301,7 +301,7 @@ if (!function_exists('readConfig')) {
 
 if (!function_exists('writeConfig')) {
     /**
-     * Undocumented function
+     * 写入配置文件
      * @param string $configName 配置文件名称 
      * 例 think.database.mysql.type 可直接修改think配置文件中的database键下的mysql键下的tpye值
      * @param mixed $content
@@ -316,7 +316,7 @@ if (!function_exists('writeConfig')) {
 
 if (!function_exists('readEnv')) {
     /**
-     * Undocumented function
+     * 读取环境变量
      * @param string $configName 配置文件名称 
      * @return string 值
      * @author mahaibo <mahaibo@hongbang.js.cn>
@@ -324,5 +324,23 @@ if (!function_exists('readEnv')) {
     function readEnv(string $configName)
     {
         return Config::readEnv($configName);
+    }
+}
+
+if (!function_exists('getUUID')) {
+    /**
+     * 获取UUID
+     * @return string 值
+     * @author mahaibo <mahaibo@hongbang.js.cn>
+     */
+    function getUUID()
+    {
+        $str = md5(uniqid(mt_rand(), true));
+        $uuid  = substr($str, 0, 8) . '-';
+        $uuid .= substr($str, 8, 4) . '-';
+        $uuid .= substr($str, 12, 4) . '-';
+        $uuid .= substr($str, 16, 4) . '-';
+        $uuid .= substr($str, 20, 12);
+        return strtoupper($uuid);
     }
 }
