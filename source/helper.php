@@ -306,7 +306,7 @@ if (!function_exists('readConfig')) {
      * 如值为数组则支持多级取值,以'.'连接
      * @return void
      */
-    function readConfig(string $configName): string
+    function readConfig(string $configName)
     {
         return Config::read($configName);
     }

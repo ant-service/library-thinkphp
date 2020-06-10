@@ -67,7 +67,7 @@ class Config
             $keyArr = convertArray($keys);
             foreach ($keyArr as $value) {
                 $key = $configName . '.' . $value;
-                self::write($key, '');
+                if (self::read($key) === null) self::write($key, '');
             }
         }
     }
