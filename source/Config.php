@@ -33,7 +33,7 @@ class Config
         $newContent = array();
         foreach ($keyArray as $key) {
             $newContent[$key] = $content;
-            unset($newContent[$lastKey]);
+            if (count($newContent) > 1) unset($newContent[$lastKey]);
             $content = $newContent;
             $lastKey = $key;
         }
@@ -57,5 +57,18 @@ class Config
             $envContent = $envContent[$key] ?? null;
         }
         return $envContent;
+    }
+
+    public static function sync($ruleConfig)
+    {
+        foreach ($ruleConfig as $configName => $keys) {
+            $configPath = Request::rootDirectory() . 'config' . DIRECTORY_SEPARATOR . $configName . '.json';
+            if (!is_file($configPath)) self::write($configName, []);
+            $keyArr = convertArray($keys);
+            foreach ($keyArr as $value) {
+                $key = $configName . '.' . $value;
+                self::write($key, '');
+            }
+        }
     }
 }

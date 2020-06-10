@@ -215,6 +215,19 @@ if (!function_exists('syncDataBase')) {
     }
 }
 
+if (!function_exists('syncConfig')) {
+    /**
+     * 配置内容同步
+     * @param array $ruleConfig 依赖规则 例：['user' => 'id,nickname,age', 'user_account' => 'id,uid,username,password']
+     * @return boolean
+     * @author mahaibo <mahaibo@hongbang.js.cn>
+     */
+    function syncConfig($ruleConfig): void
+    {
+        Config::sync($ruleConfig);
+    }
+}
+
 if (!function_exists('getRequestParam')) {
 
     /**
