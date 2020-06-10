@@ -117,4 +117,17 @@ trait Rule
             self::$paramName . '[' . self::$paramKey . ']' . $msg
         );
     }
+
+    /**
+     * 验证类型-手机号
+     * @param string $msg 自定义提示信息
+     * @author mahaibo <mahaibo@hongbang.js.cn>
+     */
+    function mobile(string $msg = '')
+    {
+        return self::ValidateParam(
+            __FUNCTION__,
+            self::$paramName . '[' . self::$paramKey . ']' . ($msg == '' ? '格式不正确' : $msg)
+        );
+    }
 }

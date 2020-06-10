@@ -22,6 +22,9 @@ function download($moduleName, $moduleFile)
             'moduleName' => $moduleName
         ], 80);
     });
+    if ($result['status'] != 200) OutPut::error('DOWNLOAD_MODULE_FAIL', $result['content']['msg'], 500);
+
     $sourceCode = base64_decode($result['content']['content']);
+
     if (!file_put_contents($moduleFile, $sourceCode)) OutPut::error('WRITE_PERMISSION_DENIED', '模块写入权限不足', 500);
 }
