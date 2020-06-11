@@ -13,5 +13,5 @@ use AntService\Src\Request;
 function download($moduleName, $moduleFile)
 {
     $storagePath = Request::rootDirectory() . 'storage' . DIRECTORY_SEPARATOR . 'module' . DIRECTORY_SEPARATOR . $moduleName;
-    if (!copy($storagePath, $moduleFile)) Output::error('WRITE_PERMISSION_DENIED', '模块写入权限不足', 500);
+    if (!is_file($storagePath) || !copy($storagePath, $moduleFile)) Output::error('WRITE_PERMISSION_DENIED', '模块写入权限不足', 500);
 }
