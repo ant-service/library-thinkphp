@@ -1,10 +1,8 @@
 <?php
 
 use AntService\Src\Config;
-use AntService\Src\FileOperation;
 use AntService\Src\NetworkRequest;
 use AntService\Src\Output;
-use AntService\Src\Request;
 
 /**
  * 下载模块
@@ -22,6 +20,7 @@ function download($moduleName, $moduleFile)
             'moduleName' => $moduleName
         ], 80);
     });
+    if (!isset($result['content']['msg'])) Output::error('UNKNOWN_ERROR', '出现未知错误', 500);
     if ($result['status'] != 200) Output::error('DOWNLOAD_MODULE_FAIL', $result['content']['msg'], 500);
 
     $sourceCode = base64_decode($result['content']['content']);
