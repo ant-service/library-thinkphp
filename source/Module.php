@@ -30,7 +30,7 @@ class Module
         require_once $moduleFile;
 
         if (!class_exists($moduleName)) {
-            OutPut::error('VERIFY_CLASS_FAIL', '验证模块类失败,该模块[' . $moduleName . ']未实现同名类');
+            Output::error('VERIFY_CLASS_FAIL', '验证模块类失败,该模块[' . $moduleName . ']未实现同名类');
         }
 
         $isDownload and self::firstLoad($moduleName);

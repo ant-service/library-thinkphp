@@ -5,7 +5,7 @@ use AntService\Src\Config;
 use AntService\Src\DataBase;
 use AntService\Src\DataType;
 use AntService\Src\Module;
-use AntService\Src\OutPut;
+use AntService\Src\Output;
 use AntService\Src\Request;
 use AntService\Src\Validate;
 
@@ -183,7 +183,7 @@ if (!function_exists('successOutput')) {
      */
     function successOutput($data): void
     {
-        OutPut::success($data);
+        Output::success($data);
     }
 }
 
@@ -198,7 +198,7 @@ if (!function_exists('errorOutput')) {
      */
     function errorOutput($code, string $message = '', $status = 500): void
     {
-        OutPut::error($code, $message, $status);
+        Output::error($code, $message, $status);
     }
 }
 

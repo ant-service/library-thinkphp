@@ -16,7 +16,7 @@ class DataBase
         try {
             if (is_callable($mode)) return self::callable($mode, ...$param);
         } catch (Exception $e) {
-            OutPut::error('USE_DATABASE_FAIL', $e->getMessage(), 500);
+            Output::error('USE_DATABASE_FAIL', $e->getMessage(), 500);
         }
         return new self;
     }
@@ -31,7 +31,7 @@ class DataBase
             $thinkDb::commit();
         } catch (Exception $e) {
             $thinkDb::rollback();
-            OutPut::error('USE_TRANSACTION_FAIL', $e->getMessage(), 500);
+            Output::error('USE_TRANSACTION_FAIL', $e->getMessage(), 500);
         }
         return $result;
     }

@@ -2,7 +2,7 @@
 
 namespace AntService\Src\DataBase;
 
-use AntService\Src\OutPut;
+use AntService\Src\Output;
 use Exception;
 
 trait Expand
@@ -21,7 +21,7 @@ trait Expand
         try {
             return self::name('')->query($sql, $bind);
         } catch (Exception $e) {
-            OutPut::error('QUERY_SQL_FAIL', $e->getMessage(), 500);
+            Output::error('QUERY_SQL_FAIL', $e->getMessage(), 500);
         }
     }
 
@@ -38,7 +38,7 @@ trait Expand
         try {
             return self::name('')->execute($sql, $bind, $origin);
         } catch (Exception $e) {
-            OutPut::error('EXECUTE_SQL_FAIL', $e->getMessage(), 500);
+            Output::error('EXECUTE_SQL_FAIL', $e->getMessage(), 500);
         }
     }
 }

@@ -2,7 +2,7 @@
 
 namespace AntService\Src;
 
-class OutPut
+class Output
 {
 
     private static $returnObject = null;

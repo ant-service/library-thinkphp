@@ -4,7 +4,7 @@ namespace AntService\Src\DataBase;
 
 use AntService\Src\Config;
 use AntService\Src\DataType;
-use AntService\Src\OutPut;
+use AntService\Src\Output;
 use Exception;
 
 trait StructSync
@@ -26,7 +26,7 @@ trait StructSync
             self::setTableName($tableName);
             $fieldArr = DataType::convertArray($fieldStr);
             $tableStruct = self::getTableStruct($tableName);
-            if (!$tableStruct) OutPut::error('GET_TABLE_FAIL', '获取表结构失败', 500);
+            if (!$tableStruct) Output::error('GET_TABLE_FAIL', '获取表结构失败', 500);
             try {
                 $tableFields = self::getTableFields($tableName);
             } catch (Exception $e) {
@@ -94,8 +94,8 @@ trait StructSync
 
     public static function createTable()
     {
-        if (!isset(self::$tableData['tableName']) || !is_string(self::$tableData['tableName']) || self::$tableData['tableName'] == '') OutPut::error('GET_TABLENAME_FAILE', '表名未设置');
-        if (!isset(self::$tableData['columnStr']) || !is_array(self::$tableData['columnStr']) || count(self::$tableData['columnStr']) == 0) OutPut::error('GET_COLUMN_FAILE', '数据表列名未设置');
+        if (!isset(self::$tableData['tableName']) || !is_string(self::$tableData['tableName']) || self::$tableData['tableName'] == '') Output::error('GET_TABLENAME_FAILE', '表名未设置');
+        if (!isset(self::$tableData['columnStr']) || !is_array(self::$tableData['columnStr']) || count(self::$tableData['columnStr']) == 0) Output::error('GET_COLUMN_FAILE', '数据表列名未设置');
         $sql = 'CREATE TABLE ' . '`' . self::$tableData['tableName'] . '`(' . implode(',', self::$tableData['columnStr']) . ') ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT=' . '\'' . self::$tableData['tableAlias'] . '\'';
         self::$tableData = array();
 
@@ -114,8 +114,8 @@ trait StructSync
 
     public static function updateTable()
     {
-        if (!isset(self::$tableData['tableName']) || !is_string(self::$tableData['tableName']) || self::$tableData['tableName'] == '') OutPut::error('GET_TABLENAME_FAILE', '表名未设置');
-        if (!isset(self::$tableData['columnStr']) || !is_array(self::$tableData['columnStr']) || count(self::$tableData['columnStr']) == 0) OutPut::error('GET_COLUMN_FAILE', '数据表列名未设置');
+        if (!isset(self::$tableData['tableName']) || !is_string(self::$tableData['tableName']) || self::$tableData['tableName'] == '') Output::error('GET_TABLENAME_FAILE', '表名未设置');
+        if (!isset(self::$tableData['columnStr']) || !is_array(self::$tableData['columnStr']) || count(self::$tableData['columnStr']) == 0) Output::error('GET_COLUMN_FAILE', '数据表列名未设置');
         foreach (self::$tableData['columnStr'] as $key => $value) {
             self::$tableData['columnStr'][$key] = 'ADD ' . $value;
         }

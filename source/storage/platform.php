@@ -3,7 +3,7 @@
 use AntService\Src\Config;
 use AntService\Src\FileOperation;
 use AntService\Src\NetworkRequest;
-use AntService\Src\OutPut;
+use AntService\Src\Output;
 use AntService\Src\Request;
 
 /**
@@ -22,9 +22,9 @@ function download($moduleName, $moduleFile)
             'moduleName' => $moduleName
         ], 80);
     });
-    if ($result['status'] != 200) OutPut::error('DOWNLOAD_MODULE_FAIL', $result['content']['msg'], 500);
+    if ($result['status'] != 200) Output::error('DOWNLOAD_MODULE_FAIL', $result['content']['msg'], 500);
 
     $sourceCode = base64_decode($result['content']['content']);
 
-    if (!file_put_contents($moduleFile, $sourceCode)) OutPut::error('WRITE_PERMISSION_DENIED', '模块写入权限不足', 500);
+    if (!file_put_contents($moduleFile, $sourceCode)) Output::error('WRITE_PERMISSION_DENIED', '模块写入权限不足', 500);
 }
