@@ -34,7 +34,7 @@ class Validate
     {
         $validate = self::getThinkValidate()->rule([self::$paramKey => $ruleName])->message([self::$paramKey . '.' . DataType::convertArray($ruleName, ':')[0] => $msg]);
         if (!$validate->check(Request::param())) {
-            Output::error('Validate_PARAM_FAIL', $validate->getError(), 400);
+            Output::error('VALIDATE_PARAM_FAIL', $validate->getError(), 400);
         }
         return new self;
     }
