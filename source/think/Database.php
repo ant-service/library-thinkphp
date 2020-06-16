@@ -10,10 +10,11 @@ trait Database
 
     private static $thinkDataBase = null;
 
-    public static function getThinkDB($isForce = false)
+    public static function getThinkDB()
     {
-        if (self::$thinkDataBase == null) {
-            $thinkApp = self::getThinkApp($isForce);
+        if (self::$thinkDataBase == null || $_SERVER['is_init_module']) {
+            var_dump($_SERVER['is_init_module']);
+            $thinkApp = self::getThinkApp($_SERVER['is_init_module']);
             self::$thinkDataBase = $thinkApp->make('think\facade\Db', [], true);
             self::$thinkDataBase::setConfig([
                 'default' => Config::read('think.default.database'),

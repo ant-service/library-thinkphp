@@ -65,6 +65,7 @@ trait StructSync
                 if (count($fieldArr)) self::createTable();
             }
         }
+        $_SERVER['is_init_module'] = true;
     }
 
     public static function setTableName(string $tableName, string $tableAlias = '')
