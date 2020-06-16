@@ -44,6 +44,7 @@ trait Header
         foreach ($param as $key => $value) {
             self::$headers[self::formatKey($key)] = $value;
         }
+        return self::instance();
     }
 
     /**

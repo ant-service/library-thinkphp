@@ -5,6 +5,7 @@ use AntService\Src\Config;
 use AntService\Src\DataBase;
 use AntService\Src\DataType;
 use AntService\Src\Module;
+use AntService\Src\NetworkRequest;
 use AntService\Src\Output;
 use AntService\Src\Request;
 use AntService\Src\Validate;
@@ -101,6 +102,20 @@ if (!function_exists('useRequest')) {
             return $callback($request);
         }
         return $request;
+    }
+}
+
+if (!function_exists('useNetwork')) {
+
+    /**
+     * 使用网络请求
+     * @param callable $callback 闭包函数
+     * @return void
+     * @author mahaibo <mahaibo@hongbang.js.cn>
+     */
+    function useNetwork(callable $callback = null)
+    {
+        return NetworkRequest::use($callback);
     }
 }
 

@@ -13,6 +13,8 @@ class Validate
 
     private static $paramValue = '';
 
+    private static $validateData = array();
+
     /**
      * 设置验证参数
      * @param string $key 参数名
@@ -33,10 +35,33 @@ class Validate
     private static function ValidateParam(string $ruleName, string $msg): Validate
     {
         $validate = self::getThinkValidate()->rule([self::$paramKey => $ruleName])->message([self::$paramKey . '.' . DataType::convertArray($ruleName, ':')[0] => $msg]);
-        if (!$validate->check(Request::param())) {
+        if (!$validate->check(self::getValidateData())) {
             Output::error('VALIDATE_PARAM_FAIL', $validate->getError(), 400);
         }
         return new self;
+    }
+
+    /**
+     * 设置验证参数
+     * @param string $data 传入数据
+     * @return void
+     * @author mahaibo <mahaibo@hongbang.js.cn>
+     */
+    public static function setValidateData($data)
+    {
+        self::$validateData = $data;
+        return new self;
+    }
+
+    /**
+     * 获取验证参数
+     * @return array
+     * @author mahaibo <mahaibo@hongbang.js.cn>
+     */
+    private static function getValidateData()
+    {
+        if (!count(self::$validateData)) self::$validateData = Request::param();
+        return self::$validateData;
     }
 
     /**
