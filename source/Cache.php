@@ -50,7 +50,7 @@ class Cache
 
     public static function set($key, $value, $expire)
     {
-        return self::getThinkCache()->set($key, ['value' => $value, 'expire' => time() + $expire]);
+        return self::getThinkCache()->set($key, ['value' => $value, 'expire' => time() + $expire], $expire);
     }
 
     public static function remove($key)
